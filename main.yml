@@ -8,8 +8,8 @@
       when: ansible_product_name ==  'OpenStack Compute'
       tags: [ inventory ]
 
-- name: base configuration
-  hosts: all
+- name: install HA proxy
+  hosts: frontends
   become: true
 
   roles:
@@ -17,12 +17,6 @@
       tags: [ system ]
     - role: conf-base
       tags: [ system ]
-
-- name: install HA proxy
-  hosts: frontends
-  become: true
-
-  roles:
     - role: svcs-haproxy
       tags: [ haproxy ]
 
@@ -31,6 +25,10 @@
   become: true
 
   roles:
+    - role: conf-repos
+      tags: [ system ]
+    - role: conf-base
+      tags: [ system ]
     - role: app-tomcat
       tags: [ app ]
 
@@ -39,6 +37,10 @@
   become: true
 
   roles:
+    - role: conf-repos
+      tags: [ system ]
+    - role: conf-base
+      tags: [ system ]
     - role: geerlingguy.postgresql
       tags: [ db ]
 

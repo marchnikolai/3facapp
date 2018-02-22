@@ -1,12 +1,3 @@
-[internal:vars]
-timeout=60
-ansible_become=yes
-ansible_ssh_user=ec2-user
-
-[appdbs:children]
-tag_AnsibleGroup_appdbs
-[apps:children]
-tag_AnsibleGroup_apps
-[frontends:children]
-tag_AnsibleGroup_frontends
+[jumpbox]
+workstation-1c43.rhpds.opentlc.com
 

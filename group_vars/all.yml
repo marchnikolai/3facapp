@@ -1,5 +1,12 @@
 ---
 
+my_cloud: ospcloud
+my_region: RegionOne
+
+osp_facter__cloud_region:
+  - cloud: "{{ my_cloud }}"
+    region_name: "{{ my_region }}"
+
 conf_repos__repos_d:
   - name: open_three-tier-app
     enabled: true
