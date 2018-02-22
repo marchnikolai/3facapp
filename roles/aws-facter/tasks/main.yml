@@ -7,11 +7,10 @@
 
 - name: add host to inventory
   add_host:
-   name: "{{ item.1 }}"
-   group: "{{ item.0.group }}"
-  with_subelements:
-    - "{{ aws_facter__inventory }}"
-    - hosts
+    name: "{{ item.inventory_hostname }}"
+    group: "{{ item.ec2_tag_AnsibleGroup }}"
+  with_dict: "{{ hostvars }}"
   loop_control:
-    label: "{{ item.0.group+ ' ' + item.1 }}"
+    label: "{{ item.inventory_hostname | d('') + ' ' + item.ec2_tag_AnsibleGroup | d('') }}"
+  when: item.ec2_tag_AnsibleGroup | d('') and item.inventory_hostname | d('')
 
