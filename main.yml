@@ -11,6 +11,8 @@
 - name: build AWS inventory
   hosts: localhost
   connection: local
+
+  roles:
     - role: aws-facter
       aws_facter__inventory:
         - group: appdbs
