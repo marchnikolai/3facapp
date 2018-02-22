@@ -7,6 +7,19 @@
     - role: osp-facter
       when: ansible_product_name ==  'OpenStack Compute'
       tags: [ inventory ]
+    - role: aws-facter
+      aws_facter__inventory:
+        - group: appdbs
+          hosts:
+            - tag_AnsibleGroup_appdbs
+        - group: apps
+          hosts:
+            - tag_AnsibleGroup_apps
+        - group: frontends
+          hosts:
+            - tag_AnsibleGroup_frontends
+      when: ansible_product_name ==  'AWS EC2 Compute'
+      tags: [ inventory ]
 
 - name: install HA proxy
   hosts: frontends

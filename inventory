@@ -1,3 +1,11 @@
 [jumpbox]
 workstation-1c43.rhpds.opentlc.com
 
+[appdbs]
+tag_AnsibleGroup_appdbs
+
+[apps]
+tag_AnsibleGroup_apps
+
+[frontends]
+tag_AnsibleGroup_frontends

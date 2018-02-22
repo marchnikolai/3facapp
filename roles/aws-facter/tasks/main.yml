@@ -1,0 +1,17 @@
+---
+# tasks file for roles/aws-facter
+
+- name: show instance info
+  debug:
+    var: hostvars
+
+- name: add host to inventory
+  add_host:
+   name: "{{ item.1 }}"
+   group: "{{ item.0.group }}"
+  with_subelements:
+    - "{{ aws_facter__inventory }}"
+    - hosts
+  loop_control:
+    label: "{{ item.0.group+ ' ' + item.1 }}"
+
