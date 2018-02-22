@@ -7,10 +7,9 @@
 
 - name: add host to inventory
   add_host:
-    name: "{{ item.inventory_hostname }}"
-    group: "{{ item.ec2_tag_AnsibleGroup }}"
+    name: "{{ item.key }}"
+    group: "{{ item.value.ec2_tag_AnsibleGroup }}"
   with_dict: "{{ hostvars }}"
   loop_control:
-    label: "{{ item.inventory_hostname | d('') + ' ' + item.ec2_tag_AnsibleGroup | d('') }}"
-  when: item.ec2_tag_AnsibleGroup | d('') and item.inventory_hostname | d('')
+    label: "{{ item.key | d('') + ' ' + item.value.ec2_tag_AnsibleGroup | d('') }}"
 
