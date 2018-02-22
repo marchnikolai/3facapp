@@ -1,12 +1,16 @@
 ---
 
-- name: build inventory
-  hosts: localhost
+- name: build Open Stack inventory
+  hosts: jumpbox
 
   roles:
     - role: osp-facter
       when: ansible_product_name ==  'OpenStack Compute'
       tags: [ inventory ]
+
+- name: build AWS inventory
+  hosts: localhost
+  connection: local
     - role: aws-facter
       aws_facter__inventory:
         - group: appdbs
