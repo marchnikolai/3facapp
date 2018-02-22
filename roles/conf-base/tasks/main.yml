@@ -1,0 +1,11 @@
+---
+# tasks file for roles/conf-base
+
+- name: enable sudo without tty for some ansible commands
+  replace:
+    path: /etc/sudoers
+    regexp: '^Defaults\s*requiretty'
+    replace: 'Defaults  !requiretty'
+    backup: yes
+    validate: '/usr/sbin/visudo -cf %s'
+

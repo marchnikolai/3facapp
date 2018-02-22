@@ -1,0 +1,9 @@
+---
+# handlers file for roles/app-tomcat
+
+- name: enable_and_restart_tomcat
+  service:
+    name: tomcat
+    state: restarted
+    enabled: yes
+

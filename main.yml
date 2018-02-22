@@ -1,0 +1,44 @@
+---
+
+- name: build inventory
+  hosts: jumpbox
+
+  roles:
+    - role: osp-facter
+      when: ansible_product_name ==  'OpenStack Compute'
+      tags: [ inventory ]
+
+- name: base configuration
+  hosts: all
+  become: true
+
+  roles:
+    - role: conf-repos
+      tags: [ system ]
+    - role: conf-base
+      tags: [ system ]
+
+- name: install HA proxy
+  hosts: frontends
+  become: true
+
+  roles:
+    - role: svcs-haproxy
+      tags: [ haproxy ]
+
+- name: setup app tier
+  hosts: apps
+  become: true
+
+  roles:
+    - role: app-tomcat
+      tags: [ app ]
+
+- name: setup database tier
+  hosts: appdbs
+  become: true
+
+  roles:
+    - role: geerlingguy.postgresql
+      tags: [ db ]
+

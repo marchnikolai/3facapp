@@ -1,0 +1,21 @@
+---
+# tasks file for roles/svcs-haproxy
+
+- name: install soft HAProxy dependencies
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ svcs_haproxy__dep_pkgs }}"
+
+- name: install HAProxy package
+  package:
+    name: haproxy
+    state: latest
+  notify: enable and start haproxy
+
+- name: configure HAProxy
+  template:
+    src: etc/haproxy.cfg
+    dest: "{{ svcs_haproxy__conf_file }}"
+  notify: enable and start haproxy
+

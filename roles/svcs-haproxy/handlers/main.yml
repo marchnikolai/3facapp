@@ -1,0 +1,9 @@
+---
+# handlers file for roles/svcs-haproxy
+
+- name: enable and start haproxy
+  service:
+    name: haproxy
+    state: restarted
+    enabled: yes
+

@@ -1,0 +1,26 @@
+---
+# tasks file for roles/conf-repos
+
+- name: Create Yum .repo files
+  template:
+    src: etc/yum.repos.d/item.repo
+    dest: "/etc/yum.repos.d/{{ item.name }}.repo"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
+    backup: "{{ item.backup | default('no') }}"
+  with_items: "{{ conf_repos__repos_d }}"
+  when: ( item.name | d('') and item.enabled | d('') )
+  notify:
+    - yum clean all
+
+- name: Delete Yum .repo files
+  file:
+    path: "/etc/yum.repos.d/{{ item.name }}.repo"
+    state: 'absent'
+  with_items: "{{ conf_repos__repos_d }}"
+  when: ( (item.name | d('')) and
+        (not item.enabled | d('')) )
+  notify:
+    - yum clean all
+

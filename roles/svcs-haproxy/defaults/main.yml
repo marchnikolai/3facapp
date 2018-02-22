@@ -1,0 +1,7 @@
+---
+# defaults file for roles/svcs-haproxy
+
+svcs_haproxy__dep_pkgs:
+  - httpie
+
+svcs_haproxy__conf_file: /etc/haproxy/haproxy.cfg
