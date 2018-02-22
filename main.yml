@@ -16,13 +16,13 @@
   roles:
     - role: aws-facter
       aws_facter__inventory:
-        - group: appdbs
+        - group: 'appdbs:children'
           hosts:
             - tag_AnsibleGroup_appdbs
-        - group: apps
+        - group: 'apps:children'
           hosts:
             - tag_AnsibleGroup_apps
-        - group: frontends
+        - group: 'frontends:children'
           hosts:
             - tag_AnsibleGroup_frontends
       when: ansible_product_name ==  'AWS EC2 Compute'
