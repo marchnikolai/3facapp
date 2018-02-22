@@ -16,5 +16,6 @@
     - "{{ osp_facter__os_server_facts_results.results }}"
     - ansible_facts.openstack_servers
   loop_control:
-    label: "{{ item.1.metadata.group + ' ' + item.1.public_v4 }}"
+    label: "{{ item.1.metadata.group + ' ' + item.1.public_v4 + ' ' + item.1.status }}"
+  failed_when: not (item.1.status | d('') == 'ACTIVE')
 

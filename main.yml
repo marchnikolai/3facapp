@@ -10,6 +10,7 @@
 
 - name: install HA proxy
   hosts: frontends
+  gather_facts: true
   become: true
 
   roles:
@@ -22,6 +23,7 @@
 
 - name: setup app tier
   hosts: apps
+  gather_facts: true
   become: true
 
   roles:
@@ -34,6 +36,7 @@
 
 - name: setup database tier
   hosts: appdbs
+  gather_facts: true
   become: true
 
   roles:

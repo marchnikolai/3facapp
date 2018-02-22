@@ -13,6 +13,9 @@
     state: latest
   notify: enable and start haproxy
 
+- debug:
+    var: hostvars
+
 - name: configure HAProxy
   template:
     src: etc/haproxy.cfg
