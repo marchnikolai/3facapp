@@ -2,10 +2,6 @@
 
 - name: build Open Stack inventory
   hosts: jumpbox
-  pre_tasks:
-    - name: pause
-      pause:
-        minutes: 1
 
   roles:
     - role: osp-facter
@@ -16,6 +12,11 @@
   hosts: localhost
   connection: local
   gather_facts: no
+
+  pre_tasks:
+    - name: pause
+      pause:
+        minutes: 1
 
   roles:
     - role: aws-facter
