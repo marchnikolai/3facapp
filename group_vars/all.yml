@@ -9,7 +9,7 @@ osp_facter__cloud_region:
 
 conf_repos__repos_d:
   - name: open_three-tier-app
-    enabled: true
+    state: "{{ conf_repos__state | d('present') }}"
     content: |
       [rhel-7-server-rpms]
       name=Red Hat Enterprise Linux 7

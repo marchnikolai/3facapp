@@ -10,7 +10,7 @@
     mode: "{{ item.mode | default('0644') }}"
     backup: "{{ item.backup | default('no') }}"
   with_items: "{{ conf_repos__repos_d }}"
-  when: ( item.name | d('') and item.enabled | d('') )
+  when: ( item.name | d('')) and item.state | d('') == 'present'
   notify:
     - yum clean all
 
@@ -19,8 +19,7 @@
     path: "/etc/yum.repos.d/{{ item.name }}.repo"
     state: 'absent'
   with_items: "{{ conf_repos__repos_d }}"
-  when: ( (item.name | d('')) and
-        (not item.enabled | d('')) )
+  when: (item.name | d('')) and item.state | d('') == 'absent'
   notify:
     - yum clean all
 

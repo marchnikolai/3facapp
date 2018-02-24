@@ -5,3 +5,5 @@ svcs_haproxy__dep_pkgs:
   - httpie
 
 svcs_haproxy__conf_file: /etc/haproxy/haproxy.cfg
+
+svcs_haproxy__state: present

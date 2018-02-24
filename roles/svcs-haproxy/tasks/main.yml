@@ -1,24 +1,44 @@
 ---
 # tasks file for roles/svcs-haproxy
 
-- name: install soft HAProxy dependencies
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items: "{{ svcs_haproxy__dep_pkgs }}"
+- block:
+  - name: install soft HAProxy dependencies
+    package:
+      name: "{{ item }}"
+      state: latest
+    with_items: "{{ svcs_haproxy__dep_pkgs }}"
 
-- name: install HAProxy package
-  package:
-    name: haproxy
-    state: latest
-  notify: enable and start haproxy
+  - name: install HAProxy package
+    package:
+      name: haproxy
+      state: latest
+    notify: enable and start haproxy
 
-- debug:
-    var: hostvars
+  - debug:
+      var: hostvars
 
-- name: configure HAProxy
-  template:
-    src: etc/haproxy.cfg
-    dest: "{{ svcs_haproxy__conf_file }}"
-  notify: enable and start haproxy
+  - name: configure HAProxy
+    template:
+      src: etc/haproxy.cfg
+      dest: "{{ svcs_haproxy__conf_file }}"
+    notify: enable and start haproxy
+  when: svcs_haproxy__state | d('') == 'present'
+
+- block:
+  - name: remove soft HAProxy dependencies
+    package:
+      name: "{{ item }}"
+      state: absent
+    with_items: "{{ svcs_haproxy__dep_pkgs }}"
+
+  - name: uninstall HAProxy package
+    package:
+      name: haproxy
+      state: absent
+
+  - name: unconfigure HAProxy
+    file:
+      path: "{{ svcs_haproxy__conf_file }}"
+      state: absent
+  when: svcs_haproxy__state | d('') == 'absent'
 

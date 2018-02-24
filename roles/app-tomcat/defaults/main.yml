@@ -2,3 +2,4 @@
 # defaults file for roles/app-tomcat
 
 app_tomcat__web_root:  /usr/share/tomcat/webapps/ROOT
+app_tomcat__state: present

@@ -13,11 +13,6 @@
   connection: local
   gather_facts: no
 
-  pre_tasks:
-    - name: pause
-      pause:
-        minutes: 1
-
   roles:
     - role: aws-facter
       aws_facter__inventory:
